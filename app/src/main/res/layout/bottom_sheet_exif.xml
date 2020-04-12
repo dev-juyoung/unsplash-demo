@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class="ExifBottomSheetViewBinding">
+
+        <variable
+            name="viewModel"
+            type="dev.juyoung.unsplash.ui.detail.DetailViewModel" />
+
+    </data>
+
+    <LinearLayout
+        style="@style/UnsplashBottomSheetDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:theme="@style/UnsplashBottomSheetDialog">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/margin_16dp"
+            android:text="@string/title_info"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@android:color/white" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:alpha="0.2"
+            android:background="@android:color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_16dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <include
+                    layout="@layout/widget_exif_field"
+                    app:label="@{@string/label_make}"
+                    app:value="@{viewModel.photo.exif.make ?? @string/empty_exif_value}" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/margin_16dp" />
+
+                <include
+                    layout="@layout/widget_exif_field"
+                    app:label="@{@string/label_model}"
+                    app:value="@{viewModel.photo.exif.model ?? @string/empty_exif_value}" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/margin_16dp" />
+
+                <include
+                    layout="@layout/widget_exif_field"
+                    app:label="@{@string/label_exposure_time}"
+                    app:value="@{viewModel.photo.exif.exposureTime ?? @string/empty_exif_value}" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/margin_16dp" />
+
+                <include
+                    layout="@layout/widget_exif_field"
+                    app:label="@{@string/label_aperture}"
+                    app:value="@{viewModel.photo.exif.aperture ?? @string/empty_exif_value}" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <include
+                    layout="@layout/widget_exif_field"
+                    app:label="@{@string/label_focal_length}"
+                    app:value="@{viewModel.photo.exif.focalLength ?? @string/empty_exif_value}" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/margin_16dp" />
+
+                <include
+                    layout="@layout/widget_exif_field"
+                    app:label="@{@string/label_iso}"
+                    app:value="@{viewModel.photo.exif.iso != null ? String.valueOf(viewModel.photo.exif.iso) : @string/empty_exif_value}" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/margin_16dp" />
+
+                <include
+                    layout="@layout/widget_exif_field"
+                    app:label="@{@string/label_dimensions}"
+                    app:value="@{@string/format_dimensions(viewModel.photo.width, viewModel.photo.height)}" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/margin_16dp" />
+
+                <include
+                    layout="@layout/widget_exif_field"
+                    app:label="@{@string/label_published}"
+                    app:value="@{viewModel.photo.published != null ? @string/format_published(viewModel.photo.published) : @string/empty_exif_value}" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

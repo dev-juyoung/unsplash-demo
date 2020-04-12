@@ -1,0 +1,104 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+def configProperties = new Properties()
+def configPropertiesFile = rootProject.file('config.properties')
+if (configPropertiesFile.exists()) {
+    configPropertiesFile.withReader('UTF-8') { reader ->
+        configProperties.load(reader)
+    }
+}
+
+def apiURI = configProperties.getProperty('api.uri')
+if (apiURI == null) {
+    throw new GradleException('API URI not found.')
+}
+
+def authorizationPrefix = configProperties.getProperty('api.authorizationPrefix')
+if (authorizationPrefix == null) {
+    throw new GradleException('API ACCESS KEY not found.')
+}
+
+def accessKey = configProperties.getProperty('api.accessKey')
+if (accessKey == null) {
+    throw new GradleException('API ACCESS KEY not found.')
+}
+
+android {
+    compileSdkVersion androidConfigs.compileSDK
+    buildToolsVersion androidConfigs.buildTools
+    defaultConfig {
+        applicationId "dev.juyoung.unsplash"
+        minSdkVersion androidConfigs.minSDK
+        targetSdkVersion androidConfigs.targetSDK
+        versionCode androidConfigs.versionCode
+        versionName androidConfigs.versionName
+        buildConfigField "String", "API_URI", "\"$apiURI\""
+        buildConfigField "String", "API_AUTHORIZATION_PREFIX", "\"$authorizationPrefix\""
+        buildConfigField "String", "API_ACCESS_KEY", "\"$accessKey\""
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    // dependencies for local libs.
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // dependencies for kotlin standard library.
+    implementation deps.kotlin.stdlib
+
+    // dependencies for android frameworks.
+    implementation deps.androidx.ktx
+    implementation deps.androidx.appcompat
+    implementation deps.androidx.lifecycle.viewModel
+    implementation deps.androidx.lifecycle.liveData
+    implementation deps.androidx.lifecycle.compiler
+    implementation deps.androidx.material
+    implementation deps.androidx.recyclerView
+    implementation deps.androidx.constraintLayout
+
+    // dependencies for di
+    implementation deps.koin.core
+    implementation deps.koin.viewModel
+
+    // dependencies for reactive extensions
+    implementation deps.rx.java
+    implementation deps.rx.kotlin
+    implementation deps.rx.android
+
+    // dependencies for networks
+    implementation deps.network.retrofit
+    implementation deps.network.converter.gson
+    implementation deps.network.adapter.rx
+
+    // dependencies for image load & cache
+    implementation deps.imageLoader.core
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    kapt deps.imageLoader.compiler
+
+    // dependencies for 3rd ui
+    implementation deps.photoView
+    implementation deps.lottie
+
+    // dependencies for development helpers
+    implementation deps.devtools.logger
+    implementation deps.devtools.httpInterceptor
+}

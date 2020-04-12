@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="PhotoItemBinding">
+
+        <variable
+            name="viewModel"
+            type="dev.juyoung.unsplash.ui.main.MainViewModel" />
+
+        <variable
+            name="item"
+            type="dev.juyoung.unsplash.data.entities.PhotoSummary" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="@{(view) -> viewModel.onItemClicked(item)}">
+
+        <ImageView
+            android:id="@+id/photo_image"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@{item.altDescription}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:load="@{item.urls.small}"
+            app:width="@{item.width}"
+            app:height="@{item.height}"
+            tools:src="@drawable/background_splash" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_marginBottom="@dimen/margin_16dp"
+            android:text="@{item.user.name}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="username" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

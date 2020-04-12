@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Unsplash Demo Application</string>
+    <string name="title_info">Info</string>
+    <string name="label_make">Make</string>
+    <string name="label_model">Model</string>
+    <string name="label_exposure_time">Shutter Speed</string>
+    <string name="label_aperture">Aperture</string>
+    <string name="label_focal_length">Focal Length</string>
+    <string name="label_iso">ISO</string>
+    <string name="label_dimensions">Dimensions</string>
+    <string name="label_published">Published</string>
+    <string name="empty_exif_value">-</string>
+    <string name="uncaught_exception">예기치 않은 오류가 발생했어요.\n잠시 후 다시 시도해 주세요.</string>
+    <string name="button_retry">다시 시도</string>
+    <string name="format_dimensions">%1$d x %2$d</string>
+    <string name="format_published">%1$tY.%1$tm.%1$td</string>
+</resources>
